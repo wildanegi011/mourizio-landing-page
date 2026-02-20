@@ -7,13 +7,29 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronUp, ChevronDown, Eye, Download } from "lucide-react";
 import Footer from "./Footer";
+import { cn } from "@/lib/utils";
 
 const timeline = [
-    { year: "2020", title: "Inception", description: "Founded with a vision to merge art and engineering." },
-    { year: "2021", title: "Global Expansion", description: "Established our digital footprint across three continents." },
-    { year: "2022", title: "Innovation Award", description: "Recognized as the most innovative agency in digital arts." },
-    { year: "2023", title: "Platform Alpha", description: "Launched our proprietary liquid-motion framework." },
-    { year: "2024", title: "The Future", description: "Pioneering the next generation of spatial computing experiences." },
+    {
+        year: "2018",
+        title: "Newly Established Company",
+        description: "Our company was founded in 2018 with extensive experience in the event organizer industry. We started this business with a determination to provide high-quality event organizer services."
+    },
+    {
+        year: "2020",
+        title: "Pandemic Situation",
+        description: "The event organizer industry has been significantly impacted by the COVID-19 pandemic. The pandemic has forced many events to be cancelled or postponed, which has had a direct impact on the EO business."
+    },
+    {
+        year: "2022",
+        title: "Endemic Situation",
+        description: "In this situation, several jobs have started to emerge and event organizers have started to rise, even though they still comply with health protocols during the event."
+    },
+    {
+        year: "2023",
+        title: "The Creative Industry Has Risen",
+        description: "With the creative industry rising again, we are more committed than ever to creating memorable experiences that bridge technology and human connection."
+    },
 ];
 
 export default function About() {
@@ -233,35 +249,95 @@ export default function About() {
                     </div>
 
                     {/* Section 4: History Timeline */}
-                    <div className="space-y-12 pb-40">
-                        <div className="text-center">
-                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter">Company Evolution</h3>
-                            <div className="h-px w-24 bg-accent mx-auto mt-4" />
+                    <div className="space-y-24 pb-40">
+                        {/* Premium Header */}
+                        <div className="text-center space-y-4">
+                            <h3 className="text-5xl md:text-7xl font-black text-white px-8 inline-block relative">
+                                History
+                                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-24 h-1 bg-white" />
+                            </h3>
+                            <div className="pt-8">
+                                <p className="text-accent text-[10px] uppercase tracking-[0.6em] font-bold opacity-50">Our Corporate Legacy</p>
+                            </div>
                         </div>
-                        <div className="relative pt-12 pb-12">
-                            <div className="flex flex-col md:flex-row md:space-x-12 space-y-12 md:space-y-0 md:justify-center px-4">
-                                {timeline.map((stage, idx) => (
-                                    <motion.div
-                                        key={stage.year}
-                                        initial={{ opacity: 0, y: 30 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: idx * 0.1, ease: "easeOut" }}
-                                        className="relative md:min-w-[280px] space-y-4 group"
-                                    >
-                                        <span className="text-3xl md:text-6xl font-black text-white/5 absolute -top-8 -left-4 group-hover:text-accent/10 transition-colors">
-                                            {stage.year}
-                                        </span>
-                                        <div className="space-y-2 relative z-10 pl-4 md:pl-0 border-l md:border-l-0 border-white/5 md:border-transparent">
-                                            <h4 className="text-accent font-black uppercase tracking-widest text-sm">{stage.title}</h4>
-                                            <p className="text-white/50 text-xs leading-relaxed max-w-full md:max-w-[200px]">
-                                                {stage.description}
-                                            </p>
+
+                        <div className="relative max-w-6xl mx-auto px-4 md:px-0 mt-32">
+                            {/* The Vertical Rail */}
+                            <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/5 transform md:-translate-x-1/2 overflow-hidden rounded-full">
+                                <motion.div
+                                    style={{ scaleY }}
+                                    className="w-full h-full bg-linear-to-b from-accent/20 via-accent to-accent/20 origin-top shadow-[0_0_30px_#00FFF2]"
+                                />
+                            </div>
+
+                            <div className="space-y-12 md:space-y-20 relative">
+                                {timeline.map((stage, idx) => {
+                                    const isEven = idx % 2 === 0;
+                                    return (
+                                        <div key={stage.year} className="relative min-h-[150px] md:min-h-[200px] flex items-center">
+                                            {/* Ghost Year Background (Very Subtle) */}
+                                            <motion.div
+                                                initial={{ opacity: 0 }}
+                                                whileInView={{ opacity: 0.02 }}
+                                                className={cn(
+                                                    "absolute top-1/2 -translate-y-1/2 text-[10rem] md:text-[15rem] font-black text-white select-none pointer-events-none z-0 tracking-tighter opacity-10",
+                                                    isEven ? "md:left-[55%]" : "md:right-[55%]"
+                                                )}
+                                            >
+                                                {stage.year}
+                                            </motion.div>
+
+                                            {/* Milestone Dot with Year Label */}
+                                            <div className="absolute left-8 md:left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+                                                <div className="w-5 h-5 rounded-full bg-black border-2 border-white flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_10px_#00FFF2]" />
+                                                </div>
+                                                {/* Year Label next to point */}
+                                                <div className={cn(
+                                                    "absolute whitespace-nowrap text-white font-black text-[10px] md:text-sm tracking-widest uppercase",
+                                                    isEven ? "-left-4 -translate-x-full md:-left-8" : "-right-4 translate-x-full md:-right-8"
+                                                )}>
+                                                    {stage.year}
+                                                </div>
+                                            </div>
+
+                                            <div className={cn(
+                                                "flex flex-col md:flex-row items-center justify-between w-full relative z-10",
+                                                isEven ? "md:flex-row-reverse" : ""
+                                            )}>
+                                                {/* Content Block */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: isEven ? -60 : 60 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                                    viewport={{ once: true, margin: "-100px" }}
+                                                    className={cn(
+                                                        "w-full md:w-[42%] pl-20 md:pl-0 space-y-2",
+                                                        isEven ? "md:text-right" : "md:text-left"
+                                                    )}
+                                                >
+                                                    <div className="space-y-0.5">
+                                                        <h4 className="text-xl md:text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                                                            {stage.title}
+                                                        </h4>
+                                                        <p className="text-accent text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] opacity-80">
+                                                            {idx === 0 ? "30 November 2018" : idx === 1 ? "April 2020" : idx === 2 ? "March 2022" : "January 2023"}
+                                                        </p>
+                                                    </div>
+
+                                                    <p className="text-white/40 text-[11px] md:text-base leading-relaxed font-medium">
+                                                        {stage.description}
+                                                    </p>
+
+
+                                                </motion.div>
+
+                                                {/* Spacer for Desktop */}
+                                                <div className="hidden md:block w-[42%]" />
+                                            </div>
                                         </div>
-                                        {idx < timeline.length - 1 && (
-                                            <div className="hidden lg:block absolute top-[1.4rem] left-full w-12 h-px bg-white/10" />
-                                        )}
-                                    </motion.div>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

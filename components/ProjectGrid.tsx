@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Footer from "./Footer";
+import { cn } from "@/lib/utils";
 
 const initialEvents = [
     {
@@ -166,96 +167,117 @@ export default function ProjectGrid() {
                         </p>
                     </div>
 
-                    {/* Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-20 lg:gap-20">
-                        {events.map((event, idx) => (
-                            <motion.div
-                                key={`${event.title}-${idx}`}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                viewport={{ once: true, margin: "-100px" }}
-                                className={`group relative ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
-                            >
-                                <div className="absolute -top-12 -left-4 md:-left-8 text-7xl md:text-9xl font-black text-white/5 select-none pointer-events-none">
-                                    {String(idx + 1).padStart(2, '0')}
-                                </div>
+                    {/* Grid (Masonry Implementation using CSS Columns) */}
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-8 lg:gap-12 [column-fill:balance]">
+                        {events.map((event, idx) => {
+                            // Varied aspect ratios for masonry effect
+                            const aspectRatios = ["aspect-4/5", "aspect-square", "aspect-3/4", "aspect-2/3"];
+                            const aspectClass = aspectRatios[idx % aspectRatios.length];
 
-                                <Card className="bg-transparent border-none overflow-visible group">
-                                    <CardContent className="p-0 space-y-8">
-                                        <div className="relative aspect-4/5 md:aspect-square overflow-hidden bg-[#0A0A0A]">
-                                            <div className="absolute inset-4 border border-white/10 z-20 pointer-events-none group-hover:inset-2 transition-all duration-500" />
+                            // Style variations (A, B, C)
+                            const cardStyles = ["default", "glass", "accent"];
+                            const style = cardStyles[idx % cardStyles.length];
 
-                                            <div className="relative w-full h-full">
-                                                <Image
-                                                    src={event.image}
-                                                    alt={event.title}
-                                                    fill
-                                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100"
-                                                />
-                                            </div>
+                            // Subtle layout offsets
+                            const offsets = ["", "md:translate-y-8", "md:-translate-y-4"];
+                            const offsetClass = offsets[idx % offsets.length];
 
-                                            <div
-                                                onClick={() => setSelectedVideo(event.youtubeId || null)}
-                                                className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 space-y-4 cursor-pointer"
-                                            >
-                                                <motion.div
-                                                    initial={{ scale: 0.5, opacity: 0 }}
-                                                    whileHover={{ scale: 1.1 }}
-                                                    className="w-16 h-16 rounded-full border border-accent flex items-center justify-center text-accent mb-4"
+                            return (
+                                <motion.div
+                                    key={`${event.title}-${idx}`}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    className={`mb-8 lg:mb-12 break-inside-avoid group relative w-full ${offsetClass}`}
+                                >
+                                    <div className="absolute -top-12 -left-4 text-6xl md:text-8xl font-black text-white/5 select-none pointer-events-none">
+                                        {String(idx + 1).padStart(2, '0')}
+                                    </div>
+
+                                    <Card className={cn(
+                                        "bg-transparent border-none overflow-visible group transition-all duration-700",
+                                        style === "glass" && "bg-white/5 backdrop-blur-[2px] border border-white/5 rounded-2xl p-4 md:p-6",
+                                        style === "accent" && "border-l-2 border-accent/20 pl-4 md:pl-6"
+                                    )}>
+                                        <CardContent className="p-0 space-y-6">
+                                            <div className={cn(
+                                                "relative overflow-hidden bg-[#0A0A0A]",
+                                                aspectClass,
+                                                style === "glass" ? "rounded-xl" : "rounded-none"
+                                            )}>
+                                                <div className="absolute inset-4 border border-white/10 z-20 pointer-events-none group-hover:inset-2 transition-all duration-500" />
+
+                                                <div className="relative w-full h-full">
+                                                    <Image
+                                                        src={event.image}
+                                                        alt={event.title}
+                                                        fill
+                                                        className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100 contrast-[1.15] brightness-[1.1] hover:saturate-[1.2]"
+                                                    />
+                                                </div>
+
+                                                <div
+                                                    onClick={() => setSelectedVideo(event.youtubeId || null)}
+                                                    className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-center items-center text-center p-6 space-y-4 cursor-pointer"
                                                 >
-                                                    <Play size={32} fill="currentColor" />
-                                                </motion.div>
-                                                <div className="space-y-2">
-                                                    <h4 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-accent">
-                                                        {event.title}
-                                                    </h4>
-                                                    <div className="h-px w-12 bg-white/20 mx-auto" />
+                                                    <motion.div
+                                                        initial={{ scale: 0.5, opacity: 0 }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        className="w-16 h-16 rounded-full border border-accent flex items-center justify-center text-accent mb-4"
+                                                    >
+                                                        <Play size={32} fill="currentColor" />
+                                                    </motion.div>
+                                                    <div className="space-y-2">
+                                                        <h4 className="text-xl font-black uppercase tracking-tighter text-accent">
+                                                            {event.title}
+                                                        </h4>
+                                                        <div className="h-px w-12 bg-white/20 mx-auto" />
+                                                    </div>
+
+                                                    <div className="space-y-1">
+                                                        <p className="text-xs uppercase tracking-[0.2em] font-bold text-white">
+                                                            {event.location}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className={cn(
+                                                "space-y-4",
+                                                style === "glass" ? "px-0 pb-0" : "px-2"
+                                            )}>
+                                                <div className="flex items-center justify-between">
+                                                    <Badge className={cn(
+                                                        "text-[9px] tracking-[0.2em] font-bold border-none rounded-none py-1 px-3",
+                                                        style === "accent" ? "bg-accent/10 text-accent/80" : "bg-white/5 text-white/40"
+                                                    )}>
+                                                        {event.category}
+                                                    </Badge>
+                                                    <div className="h-px flex-1 bg-white/5 mx-4" />
                                                 </div>
 
-                                                <div className="space-y-1">
-                                                    <p className="text-xs uppercase tracking-[0.2em] font-bold text-white">
-                                                        {event.location}
-                                                    </p>
-                                                    <p className="text-[10px] uppercase tracking-[0.3em] font-medium text-white/60">
-                                                        {new Date(event.date).toLocaleDateString('en-GB', {
-                                                            day: 'numeric',
-                                                            month: 'long',
-                                                            year: 'numeric'
-                                                        })}
-                                                    </p>
+                                                <h3 className="text-2xl font-black text-white/90 tracking-tighter uppercase group-hover:text-accent transition-colors duration-300">
+                                                    {event.title}
+                                                </h3>
+
+                                                <p className="text-white/40 text-xs leading-relaxed max-w-sm">
+                                                    {event.description}
+                                                </p>
+
+                                                <div className="flex flex-wrap gap-x-4 gap-y-2 pt-2">
+                                                    {event.tags.map(tag => (
+                                                        <span key={tag} className="text-[9px] text-accent/60 font-bold uppercase tracking-[0.2em]">
+                                                            {tag}
+                                                        </span>
+                                                    ))}
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        <div className="space-y-4 px-2">
-                                            <div className="flex items-center justify-between">
-                                                <Badge className="bg-white/5 text-white/40 text-[9px] tracking-[0.2em] font-medium border-none rounded-none py-1 px-3">
-                                                    {event.category}
-                                                </Badge>
-                                                <div className="h-px flex-1 bg-white/5 mx-4" />
-                                            </div>
-
-                                            <h3 className="text-3xl font-bold text-white tracking-tight group-hover:text-accent transition-colors duration-300">
-                                                {event.title}
-                                            </h3>
-
-                                            <p className="text-white/40 text-sm leading-relaxed max-w-sm">
-                                                {event.description}
-                                            </p>
-
-                                            <div className="flex flex-wrap gap-x-4 gap-y-2 pt-2">
-                                                {event.tags.map(tag => (
-                                                    <span key={tag} className="text-[10px] text-accent/60 font-medium uppercase tracking-widest">
-                                                        {tag}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </motion.div>
-                        ))}
+                                        </CardContent>
+                                    </Card>
+                                </motion.div>
+                            );
+                        })}
                     </div>
 
                     {/* Loader */}
