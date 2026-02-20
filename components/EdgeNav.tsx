@@ -13,7 +13,7 @@ interface EdgeNavProps {
 
 export default function EdgeNav({ activeSection, onNavigate }: EdgeNavProps) {
     return (
-        <div className="fixed inset-0 pointer-events-none z-100 flex items-center justify-center p-12 uppercase font-bold tracking-[0.3em] text-[14px]">
+        <div className="fixed inset-0 pointer-events-none z-100 hidden md:flex items-center justify-center p-12 uppercase font-bold tracking-[0.3em] text-[14px]">
             {/* Top: ABOUT */}
             <div className="absolute top-8 left-1/2 -translate-x-1/2 pointer-events-auto">
                 <Button

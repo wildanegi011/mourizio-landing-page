@@ -88,7 +88,7 @@ export default function Services() {
             />
 
             {/* Floating Scroll Navigation */}
-            <div className="fixed bottom-12 right-12 flex flex-col space-y-4 z-50">
+            <div className="fixed bottom-6 right-6 md:bottom-12 md:right-12 flex flex-col space-y-4 z-50">
                 <motion.button
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: showScrollTop ? 1 : 0, scale: showScrollTop ? 1 : 0.5 }}
@@ -110,7 +110,7 @@ export default function Services() {
             <div
                 ref={containerRef}
                 onScroll={handleScroll}
-                className="h-full w-full py-32 px-8 overflow-y-auto no-scrollbar scroll-smooth"
+                className="h-full w-full py-20 px-4 md:py-32 md:px-8 overflow-y-auto no-scrollbar scroll-smooth"
             >
                 <div className="max-w-7xl mx-auto space-y-32">
 
@@ -176,7 +176,7 @@ export default function Services() {
                                     className="flex flex-col items-center space-y-8"
                                 >
                                     {/* Circular Progress Display */}
-                                    <div className="relative w-48 h-48 md:w-56 md:h-56 group">
+                                    <div className="relative w-32 h-32 md:w-56 md:h-56 group">
                                         <div className="absolute inset-0 rounded-full border border-white/5 scale-110 group-hover:border-accent/30 transition-all duration-700" />
 
                                         <div className="w-full h-full rounded-full overflow-hidden border-4 border-accent relative p-2">
@@ -190,7 +190,7 @@ export default function Services() {
                                                 />
                                             </div>
                                             <div className="absolute inset-0 flex items-center justify-center z-20">
-                                                <span className="text-4xl md:text-6xl font-black text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
+                                                <span className="text-2xl md:text-6xl font-black text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]">
                                                     {service.percentage}%
                                                 </span>
                                             </div>

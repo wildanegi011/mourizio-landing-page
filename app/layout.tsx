@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   description: "A high-end, immersive digital experience showcasing creative works.",
 };
 
+import { Toaster } from "@/components/ui/sonner";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,6 +26,7 @@ export default function RootLayout({
       >
         <div className="fixed inset-0 pointer-events-none bg-noise z-9998" />
         {children}
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

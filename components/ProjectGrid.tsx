@@ -123,7 +123,7 @@ export default function ProjectGrid() {
             />
 
             {/* Floating Scroll Navigation */}
-            <div className="fixed bottom-12 right-12 flex flex-col space-y-4 z-50">
+            <div className="fixed bottom-6 right-6 md:bottom-12 md:right-12 flex flex-col space-y-4 z-50">
                 <motion.button
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: showScrollTop ? 1 : 0, scale: showScrollTop ? 1 : 0.5 }}
@@ -145,7 +145,7 @@ export default function ProjectGrid() {
             <div
                 ref={containerRef}
                 onScroll={handleScroll}
-                className="h-full w-full py-32 px-8 overflow-y-auto no-scrollbar scroll-smooth"
+                className="h-full w-full py-20 px-4 md:py-32 md:px-8 overflow-y-auto no-scrollbar scroll-smooth"
             >
                 <div className="max-w-7xl mx-auto space-y-16">
                     {/* Header */}
@@ -167,7 +167,7 @@ export default function ProjectGrid() {
                     </div>
 
                     {/* Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-20 lg:gap-20">
                         {events.map((event, idx) => (
                             <motion.div
                                 key={`${event.title}-${idx}`}
@@ -177,7 +177,7 @@ export default function ProjectGrid() {
                                 viewport={{ once: true, margin: "-100px" }}
                                 className={`group relative ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
                             >
-                                <div className="absolute -top-12 -left-8 text-9xl font-black text-white/5 select-none pointer-events-none">
+                                <div className="absolute -top-12 -left-4 md:-left-8 text-7xl md:text-9xl font-black text-white/5 select-none pointer-events-none">
                                     {String(idx + 1).padStart(2, '0')}
                                 </div>
 

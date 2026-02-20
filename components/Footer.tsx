@@ -15,11 +15,11 @@ export default function Footer() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="w-full max-w-7xl mx-auto px-8 py-12 flex flex-col md:flex-row items-center justify-between border-t border-white/5 space-y-6 md:space-y-0"
+            className="w-full max-w-7xl mx-auto px-4 md:px-8 py-12 flex flex-col md:flex-row items-center justify-between border-t border-white/5 space-y-6 md:space-y-0"
         >
             <div className="text-center md:text-right space-y-2">
                 <p className="text-[10px] uppercase tracking-[0.4em] text-white/50 font-black">
-                    © 2024 Company. ALL RIGHTS RESERVED.
+                    © 2026 Company. ALL RIGHTS RESERVED.
                 </p>
                 <p className="text-[8px] uppercase tracking-[0.2em] text-white/40 italic">
                     Artistry & Engineering in Perfect Symmetry.

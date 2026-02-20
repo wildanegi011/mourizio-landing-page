@@ -29,49 +29,51 @@ export default function Hero() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative w-40 h-40 flex items-center justify-center group pointer-events-none"
+                    className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center group pointer-events-none"
                 >
                     {/* Stylized Logo Background */}
                     <div className="absolute inset-0 border border-white/5 bg-white/2 backdrop-blur-sm rounded-full scale-110 group-hover:scale-125 transition-transform duration-1000" />
                     <div className="absolute inset-0 border border-accent/20 rounded-full animate-[ping_3s_linear_infinite] opacity-20" />
 
-                    {/* Professional Logoipsum SVG */}
-                    <svg width="80" height="80" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                    {/* New Premium Geometric Logo */}
+                    <svg width="60" height="60" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)] md:w-20 md:h-20">
+                        {/* Outer Frame */}
                         <motion.path
-                            d="M20 5L25 15H15L20 5Z"
-                            fill="white"
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.2 }}
+                            d="M20 2L38 20L20 38L2 20L20 2Z"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinejoin="round"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 2, ease: "easeInOut" }}
                         />
+                        {/* Inner Core */}
                         <motion.path
-                            d="M20 35L15 25H25L20 35Z"
-                            fill="white"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.4 }}
-                        />
-                        <motion.path
-                            d="M5 20L15 15V25L5 20Z"
+                            d="M20 8L32 20L20 32L8 20L20 8Z"
                             fill="var(--color-accent)"
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1, delay: 0.6 }}
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 0.4 }}
+                            transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }}
                         />
+                        {/* Precision Grid Lines */}
                         <motion.path
-                            d="M35 20L25 25V15L35 20Z"
-                            fill="var(--color-accent)"
-                            initial={{ opacity: 0, x: 10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 1, delay: 0.8 }}
+                            d="M20 2V38 M2 20H38"
+                            stroke="white"
+                            strokeWidth="0.5"
+                            strokeOpacity="0.2"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 0.2 }}
+                            transition={{ duration: 1, delay: 1 }}
                         />
-                        {/* Center Accent */}
+                        {/* Center Point */}
                         <motion.circle
-                            cx="20" cy="20" r="3"
+                            cx="20"
+                            cy="20"
+                            r="2"
                             fill="white"
                             initial={{ scale: 0 }}
-                            animate={{ scale: [0, 1.2, 1] }}
-                            transition={{ duration: 0.5, delay: 1 }}
+                            animate={{ scale: [0, 1.5, 1] }}
+                            transition={{ duration: 0.8, delay: 1.2 }}
                         />
                     </svg>
 
@@ -91,7 +93,7 @@ export default function Hero() {
                             >
                                 <Badge
                                     variant="outline"
-                                    className="px-8 py-3 text-2xl md:text-3xl uppercase tracking-[0.5em] font-black border-accent/50 text-accent bg-black/60 backdrop-blur-xl shadow-[0_0_30px_rgba(0,255,242,0.25)] ring-1 ring-accent/20"
+                                    className="px-6 py-2 text-xl md:px-8 md:py-3 md:text-3xl uppercase tracking-[0.2em] md:tracking-[0.5em] font-black border-accent/50 text-accent bg-black/60 backdrop-blur-xl shadow-[0_0_30px_rgba(0,255,242,0.25)] ring-1 ring-accent/20"
                                 >
                                     {titles[index]}
                                 </Badge>
